@@ -8,7 +8,7 @@ This tool aids in the collection of data essential for static analysis, accelera
 Before executing the tool, ensure the necessary packages are installed with the following command:
 
 ```bash
-  python -m pip install -r requirements.txt
+  pip install static-analysis-script
 ```
     
 ## Usage
