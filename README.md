@@ -10,6 +10,7 @@ Before executing the tool, ensure the necessary packages are installed with the 
 ```bash
   pip install static-analysis-script
 ```
+please make sure to download the latest version, currently 0.1.1
     
 ## Usage
 
