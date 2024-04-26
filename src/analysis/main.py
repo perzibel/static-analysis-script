@@ -268,37 +268,38 @@ if __name__ == "__main__":
         UserInput = sys.argv[1]
         try:
             clean_path = UserInput.replace('"', "")
-            print("the path to be analyze: ", clean_path)
             if UserInput == ('-h' or '-H'):
                 print_help()
             elif os.path.isfile(clean_path):
-                if sys.argv[2] in ('-C', '-c'):
-                    certInfo = extract_cert_info(clean_path)
-                    print(certInfo)
-                elif sys.argv[2] in ('-E', '-e'):
-                    entropy = calculate_entropy_with_loading(clean_path)
-                    print("the entropy is --> ", entropy)
-                    if entropy > entropy_threshold:
-                        print(f"The file '{clean_path}' has high entropy, indicating it may be packed.")
+                try:
+                    if sys.argv[2] in ('-C', '-c'):
+                        certInfo = extract_cert_info(clean_path)
+                        print(certInfo)
+                    elif sys.argv[2] in ('-E', '-e'):
+                        entropy = calculate_entropy_with_loading(clean_path)
+                        print("the entropy is --> ", entropy)
+                        if entropy > entropy_threshold:
+                            print(f"The file '{clean_path}' has high entropy, indicating it may be packed.")
+                        else:
+                            print(f"The file '{clean_path}' has low entropy, indicating it may not be packed.")
+                    elif sys.argv[2] in ('-U', '-u'):
+                        Ufind = unique_patterns_find(findings)
+                        print("\n Emails:", Ufind[0])
+                        print("\n IPs:", Ufind[1])
+                        print("\n Paths:", Ufind[2])
+                        print("\n Files and DLLs:", Ufind[3])
+                        print("\n Urls:", Ufind[4])
                     else:
-                        print(f"The file '{clean_path}' has low entropy, indicating it may not be packed.")
-                else:
+                        print("an error in input \n"
+                              "please read main.py -h for further explanation")
+                except Exception as e:
                     findings = analyze_file(clean_path)
-                #  findings = (emails, ips, paths, unique_files_dlls, urls)
-                    if num_args == 2:
-                        print("\n Emails:", findings[0])
-                        print("\n IPs:", findings[1])
-                        print("\n Paths:", findings[2])
-                        print("\n Files and DLLs:", findings[3])
-                        print("\n Urls:", findings[4])
-                    else:
-                        if sys.argv[2] in ('-u', '-U'):
-                            Ufind = unique_patterns_find(findings)
-                            print("\n Emails:", Ufind[0])
-                            print("\n IPs:", Ufind[1])
-                            print("\n Paths:", Ufind[2])
-                            print("\n Files and DLLs:", Ufind[3])
-                            print("\n Urls:", Ufind[4])
+                    #  findings = (emails, ips, paths, unique_files_dlls, urls)
+                    print("\n Emails:", findings[0])
+                    print("\n IPs:", findings[1])
+                    print("\n Paths:", findings[2])
+                    print("\n Files and DLLs:", findings[3])
+                    print("\n Urls:", findings[4])
             else:
                 print("file doesn't exists, please read main.py -h for further explanation")
         except Exception as e:
