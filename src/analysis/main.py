@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import re
 import subprocess
 import math
@@ -250,13 +251,15 @@ def print_help():
     """
     a function to print the help message
     """
-    print("HI :) \n"
-          "Welcome to the Static Analysis Script! \n"
-          "This script extracts emails, paths, files, URLs, and IPs from the specified file for analysis.\n"
-          "instructions to user: \n"
+    print("Welcome to the Static Analysis Script! \n \n"
+          "This script serves as a tool for extracting valuable insights from specified files. \n"
+          "It identifies emails, paths, files, URLs, and IP addresses for in-depth analysis. \n \n"
+          "Instructions for Usage: \n"
           "Usage: main.py <file_path> <option> \n"
-          "Available options:"
-          "-u, -U    Show only unique values from the strings \n"
+          "Available Options:\n"
+          "-u, -U    Show only unique values from the extracted strings. \n"
+          "-e, -E    Print out the entropy calculation only. \n"
+          "-c, -C    Print certificate information, including supplementary details. \n\n"
           "for more information or requests, please visit the project repository. ")
 
 
