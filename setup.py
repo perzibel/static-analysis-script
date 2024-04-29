@@ -17,7 +17,7 @@ setup(
     long_description_content_type='text/markdown',  # This is important for rendering Markdown from README
     url='https://github.com/perzibel/static-analysis-script',
     packages=find_packages(where="src"),
-    package_dir={"": "src"},
+    package_dir={"": "static-analysis-script"},
     entry_points={
         'console_scripts': [
             'analysis=analysis.main:main',
