@@ -30,7 +30,7 @@ setup(
     ],
     include_package_data=True,
     package_data={
-        "analysis": ["bin/strings.exe"],  # Make sure the path matches your structure
+        "analysis": ["../bin/strings.exe"],  # Make sure the path matches your structure
     },
     classifiers=[
         'Development Status :: 3 - Alpha',
