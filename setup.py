@@ -9,7 +9,7 @@ def read(file_name):
 
 setup(
     name='static-analysis-script',
-    version='0.1.8',
+    version='0.1.9',
     author='Perzibel',
     author_email='perzibel@outlook.com',
     description='A utility to perform static analysis on files.',

@@ -187,8 +187,10 @@ def extract_strings(file_path):
     Returns: the strings decoded to utf-8
 
     """
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    parent_dir = os.path.dirname(dir_path)
     # Use strings.exe to extract strings from PE file
-    process = subprocess.Popen(f'strings.exe /accepteula "{file_path}"', shell=True, stdout=subprocess.PIPE,
+    process = subprocess.Popen(f'{parent_dir}\\bin\\strings.exe /accepteula "{file_path}"', shell=True, stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     # CLI animation
     animation = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
