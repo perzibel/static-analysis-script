@@ -16,7 +16,7 @@ please make sure to download the latest version, currently 0.1.1
 
 ```javascript
 to execute the script:
-main.py < file_path> < option>
+analysis < file_path> < option>
 
 Available options:
 
