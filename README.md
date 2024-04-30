@@ -27,6 +27,9 @@ Available options:
 -c, -C Print the cert information including plenty of extra
 ```
 
+![image](https://github.com/perzibel/static-analysis-script/assets/58742092/d6e8d129-3990-47ec-b68e-bd87aacc8d81)
+
+
 
 ## Analysis of Executables and DLL Files
 The tool employs strings.exe to pull strings from executable (EXE) and dynamic link library (DLL) files, analyzing these strings to pinpoint paths, files, IP addresses, and URLs.
