@@ -264,8 +264,7 @@ def print_help():
           "-c, -C    Print certificate information, including supplementary details. \n\n"
           "for more information or requests, please visit the project repository. ")
 
-
-if __name__ == "__main__":
+def main():
     import sys
 
     num_args = len(sys.argv)
@@ -311,3 +310,7 @@ if __name__ == "__main__":
             print("\n ----- error: ", e, " ---------")
     else:
         print("\n please enter main.py -h to see help")
+
+
+if __name__ == "__main__":
+    main()
