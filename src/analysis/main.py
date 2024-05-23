@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
 import re
 import subprocess
 import math
@@ -14,6 +15,22 @@ import time
 entropy_threshold = 7.0
 
 
+def winApiStrings(strings):
+    winAPIList = ['Open', 'Write', 'Wget', 'Wset', 'Create', 'Exec', 'Wait', 'Virtual', 'Set', 'Get', 'Http', 'Load',
+                  'Exit', 'Kill', 'Free', 'Sleep', 'Time']
+    returnList = []
+    for w in winAPIList:
+        pattern = fr"\b{w}\w*\b"
+        temp = re.findall(pattern, strings)
+        returnList.extend(temp)
+    valBack = []
+    for i in returnList:
+        if i not in valBack:
+            valBack.append(i)
+
+    return valBack
+
+
 def patterns_find(strings):
     emails = re.findall(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', strings)
     ips = re.findall(r'\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b', strings)
@@ -21,7 +38,8 @@ def patterns_find(strings):
     files_and_dlls = re.findall(r'\b[\w\.]+(?:\.dll|\.exe)\b', strings)
     urls = re.findall(r'(https?://\S+|www\.\S+)', strings)
     urls = [url for url in urls if not url.startswith("http://schemas.")]
-    findings = (emails, ips, paths, files_and_dlls, urls)
+    winAPI = winApiStrings(strings)
+    findings = (emails, ips, paths, files_and_dlls, urls, winAPI)
     return findings
 
 
@@ -63,8 +81,8 @@ def analyze_PDF(clean_path):
                 u = a.get_object()
                 if uri in u[ank].keys():
                     urls.append(u[ank][uri])
-        print(urls)
-    return ''
+
+    return urls
 
 
 def analyze_doc(clean_path):
@@ -124,7 +142,7 @@ def analyze_file(file_path):
     return Sfind
 
 
-def unique_azalyze(file_path):
+def unique_analyze(file_path):
     Sfind = ()
     Fpath = file_path.replace('"', "")
     if Fpath.endswith('.exe') or Fpath.endswith('.dll'):
@@ -190,7 +208,8 @@ def extract_strings(file_path):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     parent_dir = os.path.dirname(dir_path)
     # Use strings.exe to extract strings from PE file
-    process = subprocess.Popen(f'{parent_dir}\\bin\\strings.exe /accepteula "{file_path}"', shell=True, stdout=subprocess.PIPE,
+    process = subprocess.Popen(f'{parent_dir}\\bin\\strings.exe /accepteula "{file_path}"', shell=True,
+                               stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     # CLI animation
     animation = ['⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏']
@@ -264,6 +283,7 @@ def print_help():
           "-c, -C    Print certificate information, including supplementary details. \n\n"
           "for more information or requests, please visit the project repository. ")
 
+
 def main():
     import sys
 
@@ -298,12 +318,13 @@ def main():
                               "please read main.py -h for further explanation")
                 except Exception as e:
                     findings = analyze_file(clean_path)
-                    #  findings = (emails, ips, paths, unique_files_dlls, urls)
+                    #  findings = (emails, ips, paths, unique_files_dlls, urls, winAPI)
                     print("\n Emails:", findings[0])
                     print("\n IPs:", findings[1])
                     print("\n Paths:", findings[2])
                     print("\n Files and DLLs:", findings[3])
                     print("\n Urls:", findings[4])
+                    print("\n Windows API:", findings[5])
             else:
                 print("file doesn't exists, please read main.py -h for further explanation")
         except Exception as e:
