@@ -5,14 +5,14 @@ Welcome to the Static Analysis Script! This Python tool is crafted to extract em
 This tool aids in the collection of data essential for static analysis, accelerating the detection of Indicators of Compromise (IOCs) and other potentially malicious activities executed by files.
 ## Installation
 
-# option 1:
+### option 1:
 pip install from the pypi project
 ```bash
   python -m pip install static-analysis-script
 ```
 please make sure to download the latest version, currently 0.2.3
 
-# option 2:
+### option 2:
 git clone the project.
 pip install local from the git directory
 ```bash
