@@ -28,10 +28,12 @@ pip install local from the git directory
 
 ## Analysis of Executables and DLL Files
 The tool employs strings.exe to pull strings from executable (EXE) and dynamic link library (DLL) files, analyzing these strings to pinpoint paths, files, IP addresses, and URLs.
+NEW! extract WinApi commands in the file 
 ## Analysis of CSV Files
 For Comma-Separated Values (CSV) files, the tool extracts relevant information by directly reading the contents of the files.
+NEW! extract WinApi commands in the file 
 ## Analysis of Word Documents
 Utilizing the zipfile library, the tool processes Word documents, extracting embedded emails and URLs from various sections.
+NEW! extract WinApi commands in the file 
 ## Analysis of PDF Files
-
-Currently, analysis of PDF files does not retrieve complete data and is under review for improvements.
+extract ALL visiable and hidden URIs
