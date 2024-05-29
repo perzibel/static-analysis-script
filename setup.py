@@ -26,7 +26,9 @@ setup(
     install_requires=[
         'PyPDF2',
         'tqdm',
-        'numpy'   
+        'numpy',
+        'pyfiglet',
+        'colorama'
     ],
     include_package_data=True,
     package_data={

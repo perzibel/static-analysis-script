@@ -11,6 +11,8 @@ from tqdm import tqdm
 import os
 import sys
 import time
+import pyfiglet
+from colorama import Fore, Back, Style
 
 entropy_threshold = 7.0
 
@@ -57,13 +59,6 @@ def unique_patterns_find(finds):
 
 
 def analyze_PDF(clean_path):
-    urls = []
-    PDFFile = open(clean_path, 'rb')
-    reader = PdfReader(clean_path)
-    # printing number of pages in pdf file
-    print(len(reader.pages))
-    # creating a page object
-    page = reader.pages[0]
 
     PDF = PyPDF2.PdfReader(PDFFile)
     pages = len(PDF.pages)
@@ -72,7 +67,6 @@ def analyze_PDF(clean_path):
     ank = '/A'
 
     for page in range(pages):
-        print("Current Page: {}".format(page))
         pageSliced = PDF.pages[page]
         pageObject = pageSliced.get_object()
         if key in pageObject.keys():
@@ -272,6 +266,14 @@ def print_help():
     """
     a function to print the help message
     """
+    text = "STATIC ANALYSIS SCRIPT"
+    # Create a figlet font object
+    figlet = pyfiglet.Figlet(font='ansi_shadow')
+    # Render the text as ASCII art
+    ascii_art = figlet.renderText(text)
+    # Print the ASCII art
+    print(Fore.CYAN + ascii_art)
+    print(Fore.RESET)
     print("Welcome to the Static Analysis Script! \n \n"
           "This script serves as a tool for extracting valuable insights from specified files. \n"
           "It identifies emails, paths, files, URLs, and IP addresses for in-depth analysis. \n \n"
@@ -330,7 +332,7 @@ def main():
         except Exception as e:
             print("\n ----- error: ", e, " ---------")
     else:
-        print("\n please enter main.py -h to see help")
+        print_help()
 
 
 if __name__ == "__main__":
