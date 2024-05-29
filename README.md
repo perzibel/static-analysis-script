@@ -5,27 +5,24 @@ Welcome to the Static Analysis Script! This Python tool is crafted to extract em
 This tool aids in the collection of data essential for static analysis, accelerating the detection of Indicators of Compromise (IOCs) and other potentially malicious activities executed by files.
 ## Installation
 
-Before executing the tool, ensure the necessary packages are installed with the following command:
-
+# option 1:
+pip install from the pypi project
 ```bash
-  pip install static-analysis-script
+  python -m pip install static-analysis-script
 ```
-please make sure to download the latest version, currently 0.1.1
+please make sure to download the latest version, currently 0.2.3
+
+# option 2:
+git clone the project.
+pip install local from the git directory
+```bash
+  git clone https://github.com/perzibel/static-analysis-script.git
+  cd static-analysis-script
+  python -m pip install .
+```
     
 ## Usage
 
-```javascript
-to execute the script:
-analysis < file_path> < option>
-
-Available options:
-
--u, -U Show only unique values from the strings
-
--e, -E Prints out the entropy calculation only
-
--c, -C Print the cert information including plenty of extra
-```
 ![image](https://github.com/perzibel/static-analysis-script/assets/58742092/2734c00a-3f4d-4f36-bed4-48e72e8656a9)
 
 
