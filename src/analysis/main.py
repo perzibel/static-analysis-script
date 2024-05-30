@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
+# !/usr/bin/env python
 import re
 import subprocess
 import math
@@ -59,7 +59,6 @@ def unique_patterns_find(finds):
 
 
 def analyze_PDF(clean_path):
-
     PDF = PyPDF2.PdfReader(PDFFile)
     pages = len(PDF.pages)
     key = '/Annots'
@@ -202,7 +201,7 @@ def extract_strings(file_path):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     parent_dir = os.path.dirname(dir_path)
     # Use strings.exe to extract strings from PE file
-    process = subprocess.Popen(f'{parent_dir}\\bin\\strings.exe /accepteula "{file_path}"', shell=True,
+    process = subprocess.Popen(f'"{parent_dir}\\bin\\strings.exe" /accepteula "{file_path}"', shell=True,
                                stdout=subprocess.PIPE,
                                stderr=subprocess.PIPE)
     # CLI animation
@@ -262,10 +261,7 @@ def calculate_entropy_with_loading(file_path, block_size=65536):
     return entropy
 
 
-def print_help():
-    """
-    a function to print the help message
-    """
+def print_heaeder():
     text = "STATIC ANALYSIS SCRIPT"
     # Create a figlet font object
     figlet = pyfiglet.Figlet(font='ansi_shadow')
@@ -274,6 +270,13 @@ def print_help():
     # Print the ASCII art
     print(Fore.CYAN + ascii_art)
     print(Fore.RESET)
+
+
+def print_help():
+    """
+    a function to print the help message
+    """
+    print_heaeder()
     print("Welcome to the Static Analysis Script! \n \n"
           "This script serves as a tool for extracting valuable insights from specified files. \n"
           "It identifies emails, paths, files, URLs, and IP addresses for in-depth analysis. \n \n"
@@ -291,6 +294,7 @@ def main():
 
     num_args = len(sys.argv)
     if num_args == 2 or num_args == 3:
+        print_heaeder()
         UserInput = sys.argv[1]
         try:
             clean_path = UserInput.replace('"', "")
