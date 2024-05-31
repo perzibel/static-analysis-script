@@ -19,7 +19,7 @@ entropy_threshold = 7.0
 
 def winApiStrings(strings):
     winAPIList = ['Open', 'Write', 'Wget', 'Wset', 'Create', 'Exec', 'Wait', 'Virtual', 'Set', 'Get', 'Http', 'Load',
-                  'Exit', 'Kill', 'Free', 'Sleep', 'Time']
+                  'Exit', 'Kill', 'Free', 'Sleep', 'Time', 'Callee']
     returnList = []
     for w in winAPIList:
         pattern = fr"\b{w}\w*\b"
@@ -131,7 +131,8 @@ def analyze_file(file_path):
     elif Fpath.endswith('.doc') or Fpath.endswith('.docx'):
         Sfind = analyze_doc(Fpath)
     elif Fpath.endswith('.pdf'):
-        Sfind = analyze_PDF(Fpath)
+        Sfind = ('still not available for pdf', 'still not available for pdf', 'still not available for pdf',
+                 'still not available for pdf', analyze_PDF(Fpath), 'still not available for pdf')
     return Sfind
 
 
@@ -285,8 +286,20 @@ def print_help():
           "Available Options:\n"
           "-u, -U    Show only unique values from the extracted strings. \n"
           "-e, -E    Print out the entropy calculation only. \n"
-          "-c, -C    Print certificate information, including supplementary details. \n\n"
+          "-c, -C    Print certificate information, including supplementary details. \n"
+          "--version Script current version. \n \n"
           "for more information or requests, please visit the project repository. ")
+
+
+def print_version():
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    parent_dir = os.path.dirname(dir_path)
+    src_dir = os.path.dirname(parent_dir)
+    process = subprocess.Popen(f'type "{src_dir}\\setup.py" | findstr "version"', shell=True,
+                               stdout=subprocess.PIPE,
+                               stderr=subprocess.PIPE)
+    output, error = process.communicate()
+    return output.decode('utf-8')
 
 
 def main():
@@ -294,13 +307,16 @@ def main():
 
     num_args = len(sys.argv)
     if num_args == 2 or num_args == 3:
-        print_heaeder()
         UserInput = sys.argv[1]
         try:
             clean_path = UserInput.replace('"', "")
             if UserInput == ('-h' or '-H'):
                 print_help()
+            elif UserInput in '--version':
+                ver = print_version()
+                print(ver)
             elif os.path.isfile(clean_path):
+                print_heaeder()
                 try:
                     if sys.argv[2] in ('-C', '-c'):
                         certInfo = extract_cert_info(clean_path)
