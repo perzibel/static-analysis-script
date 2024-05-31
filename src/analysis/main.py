@@ -13,6 +13,7 @@ import sys
 import time
 import pyfiglet
 from colorama import Fore, Back, Style
+from setuptools_scm import get_version
 
 entropy_threshold = 7.0
 
@@ -292,14 +293,9 @@ def print_help():
 
 
 def print_version():
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    parent_dir = os.path.dirname(dir_path)
-    src_dir = os.path.dirname(parent_dir)
-    process = subprocess.Popen(f'type "{src_dir}\\setup.py" | findstr "version"', shell=True,
-                               stdout=subprocess.PIPE,
-                               stderr=subprocess.PIPE)
-    output, error = process.communicate()
-    return output.decode('utf-8')
+    """Print the version of the code."""
+    version = get_version()
+    print(f"Code Version: {version}")
 
 
 def main():
@@ -313,8 +309,7 @@ def main():
             if UserInput == ('-h' or '-H'):
                 print_help()
             elif UserInput in '--version':
-                ver = print_version()
-                print(ver)
+                print_version()
             elif os.path.isfile(clean_path):
                 print_heaeder()
                 try:
@@ -348,7 +343,7 @@ def main():
                     print("\n Urls:", findings[4])
                     print("\n Windows API:", findings[5])
             else:
-                print("file doesn't exists, please read main.py -h for further explanation")
+                print("file path doesn't exists, please read main.py -h for further explanation")
         except Exception as e:
             print("\n ----- error: ", e, " ---------")
     else:

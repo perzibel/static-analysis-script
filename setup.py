@@ -9,7 +9,8 @@ def read(file_name):
 
 setup(
     name='static-analysis-script',
-    version='0.2.4',
+    use_scm_version=True,
+    setup_requires=['setuptools_scm'],
     author='Perzibel',
     author_email='perzibel@outlook.com',
     description='A utility to perform static analysis on files.',
@@ -28,7 +29,8 @@ setup(
         'tqdm',
         'numpy',
         'pyfiglet',
-        'colorama'
+        'colorama',
+        'setuptools_scm'
     ],
     include_package_data=True,
     package_data={
