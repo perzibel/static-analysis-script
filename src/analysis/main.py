@@ -13,7 +13,6 @@ import sys
 import time
 import pyfiglet
 from colorama import Fore, Back, Style
-from setuptools_scm import get_version
 
 entropy_threshold = 7.0
 
@@ -120,14 +119,15 @@ def analyze_PE(clean_path):
 def analyze_file(file_path):
     Sfind = ()
     Fpath = file_path.replace('"', "")
+    Fpath = Fpath.lower()
     if Fpath.endswith('.exe') or Fpath.endswith('.dll'):
         Sfind = analyze_PE(Fpath)
     elif Fpath.endswith('.csv'):
         # Read the CSV file and search for specific strings
-        found_strings = []
+        found_strings = ('', '', '', '', '', '')
         with open(Fpath, "r", encoding="utf-8") as csv_file:
             strings = csv_file.read()
-        Sfind = patterns_find(strings)
+            Sfind = patterns_find(strings)
         return Sfind
     elif Fpath.endswith('.doc') or Fpath.endswith('.docx'):
         Sfind = analyze_doc(Fpath)
@@ -147,7 +147,7 @@ def unique_analyze(file_path):
         found_strings = []
         with open(Fpath, "r", encoding="utf-8") as csv_file:
             strings = csv_file.read()
-        Sfind = patterns_find(strings)
+            Sfind = patterns_find(strings)
         return Sfind
     elif Fpath.endswith('.doc') or Fpath.endswith('.docx'):
         Sfind = analyze_doc(Fpath)
@@ -288,6 +288,7 @@ def print_help():
           "-u, -U    Show only unique values from the extracted strings. \n"
           "-e, -E    Print out the entropy calculation only. \n"
           "-c, -C    Print certificate information, including supplementary details. \n"
+          "-IP       Prints only IP address that were found in the file"
           "--version Script current version. \n \n"
           "for more information or requests, please visit the project repository. ")
 
@@ -324,12 +325,16 @@ def main():
                         else:
                             print(f"The file '{clean_path}' has low entropy, indicating it may not be packed.")
                     elif sys.argv[2] in ('-U', '-u'):
+                        findings = analyze_file(clean_path)
                         Ufind = unique_patterns_find(findings)
                         print("\n Emails:", Ufind[0])
                         print("\n IPs:", Ufind[1])
                         print("\n Paths:", Ufind[2])
                         print("\n Files and DLLs:", Ufind[3])
                         print("\n Urls:", Ufind[4])
+                    elif sys.argv[2] in ('-IP'):
+                        findings = analyze_file(clean_path)
+                        print("\n IPs:", findings[4])
                     else:
                         print("an error in input \n"
                               "please read main.py -h for further explanation")

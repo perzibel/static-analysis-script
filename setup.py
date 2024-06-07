@@ -9,8 +9,7 @@ def read(file_name):
 
 setup(
     name='static-analysis-script',
-    use_scm_version=True,
-    setup_requires=['setuptools_scm'],
+    version='0.2.7',
     author='Perzibel',
     author_email='perzibel@outlook.com',
     description='A utility to perform static analysis on files.',
